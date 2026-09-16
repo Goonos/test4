@@ -92,6 +92,230 @@ const DATA = {
 
     // 3. 외부 블로그 링크 데이터
    blogLogs: [
+        {
+            date: "2026-09-15",
+            title: "55회차 - 오라클19c 백업&리커버리 DF,CF,RF 복합손상 및 복구",
+            summary: "오라클 19c 환경에서 데이터 파일(DF), 컨트롤 파일(CF), 리두 로그 파일(RF)이 동시에 손실·손상되는 복합 장애 시나리오를 가정하고, 백업본과 백업 컨트롤 파일을 활용한 복원(Restore) 및 SCN 기반 불완전 복구, RESETLOGS 재생성을 거쳐 데이터베이스를 정상 오픈하는 최고 난도의 복합 장애 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224412762511"
+        },
+       {
+            date: "2026-09-14",
+            title: "54회차 - 오라클19c 백업&리커버리 불완전 복구",
+            summary: "오라클 19c 환경에서 사용자의 논리적 오류나 물리적 로그 손실 상황을 대비하여 시간(Time), SCN, 또는 시퀀스(Sequence)를 기준으로 특정 시점까지만 데이터를 되돌리는 불완전 복구(Incomplete Recovery) 절차를 실습하고, RESETLOGS를 통한 신규 인카네이션 오픈 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224411550298"
+        },
+       {
+            date: "2026-09-11",
+            title: "53회차 - 오라클19c  SCN기반 백업&리커버리, rman 백업",
+            summary: "오라클 19c 환경에서 SCN(System Change Number)을 추적하여 특정 시점으로 정밀 복구하는 불완전 복구 기법을 실습하고, RMAN(Recovery Manager)을 활용한 전체 백업 및 증분 백업(Incremental Backup) 기본 구성을 진행하며 RMAN 기반 데이터 보호 및 복구 자동화 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224408332743"
+        },
+       {
+            date: "2026-09-10",
+            title: "52회차 - 오라클19c 아카이브모드의 아카이브 파일 손상의 리커버리",
+            summary: "오라클 19c 아카이브 모드 환경에서 복구에 필수적인 아카이브 로그 파일이 손실·손상된 비정상 시나리오를 가정하고, 남아 있는 로그 시퀀스 기반의 불완전 복구(Cancel-based / Until SCN Recovery)와 RESETLOGS 오픈 절차를 실습하며 데이터 유실 최소화 장애 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224407453940"
+        },
+       {
+            date: "2026-09-09",
+            title: "51회차 - 오라클19c 아카이브모드 핫백업&리커버리, 운영 중 UNDO 손상과 테이블스페이스 전환",
+            summary: "오라클 19c 아카이브 모드 환경에서 운영 중 핫 백업(Hot Backup) 및 복구(Recovery) 절차를 실습하고, 실시간 운영 중 발생한 UNDO 테이블스페이스 손상 시 신규 UNDO 생성 및 파라미터 전환을 통한 무중단 복구 기법을 다뤄보며 고급 장애 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224406262382"
+        },
+       {
+            date: "2026-09-08",
+            title: "50회차 - 오라클19c 아카이브모드 백업&리커버리",
+            summary: "오라클 19c 환경에서 아카이브(ARCHIVELOG) 모드 기반의 백업 운용 방식을 다뤄보고, 아카이브 로그와 리두 로그를 연계한 완전 복구(Complete Recovery) 및 시점 지정 불완전 복구(Incomplete Recovery) 실습을 진행하며 무손실 데이터 보호와 유연한 장애 복구 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224405661258"
+        },
+       {
+            date: "2026-09-07",
+            title: "49회차 - 오라클19c 노아카이브모드 백업&리커버리",
+            summary: "오라클 19c 환경에서 노아카이브(NOARCHIVELOG) 모드 기반의 백업 전략과 복구 한계점을 파악하고, 전체 일관성 백업본을 활용한 전체 복구 실습을 진행하며 비아카이브 환경에서의 데이터 복구 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224403925763"
+        },
+       {
+            date: "2026-09-04",
+            title: "48회차 - read only ,UNDO, tablespace 손상 디스크 전체 손상, redo가 빠진 백업본, 컨트롤파일 전체 손상의 복구",
+            summary: "Read Only 및 UNDO 테이블스페이스 손상, 디스크 전체 손상, 리두 로그가 누락된 백업본 기반 복구, 컨트롤 파일 전체 유실 등 다양한 극한 장애 시나리오별 복구(Recovery) 절차를 실습하며 데이터베이스 장애 복구 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224401100146"
+        },
+       {
+            date: "2026-09-03",
+            title: "47회차 - 오라클19C 백업파일 없는 T/S 리커버리, system sysaux undo tablespace의 데이터파일 삭제 후 복구",
+            summary: "오라클 19c 환경에서 백업본이 없는 테이블스페이스의 복구 기법을 다뤄보고, SYSTEM, SYSAUX, UNDO 등 핵심 테이블스페이스의 데이터 파일 손실 상황을 가정한 복구(Recovery) 실습을 진행하며 고난도 장애 대응 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224399977546"
+        },
+       {
+            date: "2026-09-02",
+            title: "46회차 - 오라클19C hot backup, 데이터파일 백업리커버리, 아카이브 모드 유무",
+            summary: "오라클 19c 환경에서 아카이브 모드(ARCHIVELOG) 유무에 따른 백업 차이를 파악하고, 운영 중 핫 백업(Hot Backup) 수행 및 손상된 데이터 파일(Datafile)에 대한 기초 복구(Recovery) 실습을 진행하며 가용성을 보장하는 데이터 보호 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224399940930"
+        },
+       {
+            date: "2026-09-01",
+            title: "45회차 - backup&recovery 이론 및 cold backup",
+            summary: "백업 및 복구(Backup & Recovery)의 핵심 이론을 이해하고, DB 종료 상태에서 데이터 파일·컨트롤 파일·리두 로그 파일을 물리적으로 복제하는 콜드 백업(Cold Backup) 수행 절차를 실습하며 데이터베이스 보호의 기본 체계를 구축하는 과정을 경험했습니다.",
+            tags: ["Oracle","BACKUP & RECOVERY"],
+            link: "https://blog.naver.com/10soong/224397626814"
+        },
+       {
+            date: "2026-08-26",
+            title: "44회차 - 오라클19c 예외, 프로시저",
+            summary: "오라클 19c 환경에서 예외 처리(Exception Handling)를 통한 런타임 오류 제어 기법을 익히고, 저장 프로시저(Stored Procedure)의 선언 및 매개변수 활용법을 실습하며 모듈화된 비즈니스 로직 구현 과정을 경험했습니다.",
+            tags: ["Oracle","SQL","PL/SQL"],
+            link: "https://blog.naver.com/10soong/224391169486"
+        },
+       {
+            date: "2026-08-25",
+            title: "43회차 - 오라클19c PL/SQL LOOP,WHILE LOOP, FOR LOOP CONTINUE WHEN, 커서",
+            summary: "오라클 19c 환경에서 PL/SQL의 기본 반복문(LOOP, WHILE LOOP, FOR LOOP)과 제어문(CONTINUE WHEN)을 다뤄보고, 커서(Cursor)를 선언하여 복수 행 데이터를 순회·처리하는 기초 프로그래밍 과정을 경험했습니다.",
+            tags: ["Oracle","SQL","PL/SQL"],
+            link: "https://blog.naver.com/10soong/224389939613"
+        },
+       {
+            date: "2026-08-24",
+            title: "42회차 - 오라클19c cold hot backup, DB복제, rman으로 DB복제",
+            summary: "오라클 19c 환경에서 콜드 백업(Cold Backup)과 핫 백업(Hot Backup)의 기초 수행 방식을 익히고, RMAN을 활용한 데이터베이스 복제(Duplicate DB) 작업을 실습하며 데이터 보호 및 DB 복제 운용 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224388772908"
+        },
+       {
+            date: "2026-08-20",
+            title: "41회차 - 오라클19c Data Pump(expdp/impdp), SQL*Loader(sqlldr),트랜스포터블테이블스페이스(TTS)",
+            summary: "Data Pump(expdp/impdp)와 SQL*Loader(sqlldr)를 이용한 대용량 데이터 추출 및 적재 기법을 익히고, 트랜스포터블 테이블스페이스(TTS)의 기초 원리를 학습하며 오라클 19c의 데이터 이동 및 마이그레이션 관리 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224384766862"
+        },
+       {
+            date: "2026-08-19",
+            title: "40회차 - 오라클 19C 프로파일, AUDIT, FGA",
+            summary: "오라클 19c 환경에서 프로파일(Profile)을 통한 계정 자원 및 암호 관리를 다뤄보고, 표준 AUDIT 및 정밀 감사(FGA)의 기초 설정을 실습하며 데이터베이스 보안 및 접근 이력 추적 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224383618897"
+        },
+       {
+            date: "2026-08-18",
+            title: "39회차 - 오라클19c Control files 구성, archivelog 모드 변경, rman 기초설정",
+            summary: "오라클 19c 환경에서 컨트롤 파일(Control Files) 다중화 구성을 진행하고, 데이터 보호를 위한 아카이브로그(ARCHIVELOG) 모드 전환과 RMAN(Recovery Manager)의 기초 환경 설정을 실습하며 백업 및 장애 복구 기반 구축 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224383022779"
+        },
+       {
+            date: "2026-08-14",
+            title: "38회차 - ASM사용을 위한 Oracle 19c restart 설치",
+            summary: "오라클 19c 환경에서 ASM(Automatic Storage Management) 스토리지 활용을 위해 Oracle Grid Infrastructure(Oracle Restart)를 설치하고 구성해보며, 단일 인스턴스 환경의 고가용성 및 스토리지 관리 인프라 구축 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224378811817"
+        },
+       {
+            date: "2026-08-13",
+            title: "37회차 - PDB$SEED와 PDB이용해서 PDB복사하기",
+            summary: "오라클 19c 멀티테넌트 환경에서 기본 템플릿인 PDB$SEED를 참조하여 새 PDB를 생성해보고, 기존 운영 중인 PDB를 복제(Cloning)하는 실습을 진행하며 플러그형 데이터베이스(PDB)의 효율적인 프로비저닝 및 복사 관리 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224377701341"
+        },
+       {
+            date: "2026-08-12",
+            title: "36회차 - 네트워크 local listner, 동적리스너, 정적리스너",
+            summary: "오라클 19c 환경에서 local_listener 파라미터 설정을 다뤄보고, PMON/LREG 프로세스를 통한 동적 리스너 등록과 listener.ora 파일을 이용한 정적 리스너 구성 방식의 차이 및 기본 동작 원리를 파악하며 데이터베이스 네트워크 리스너 관리 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224376631467"
+        },
+       {
+            date: "2026-08-11",
+            title: "35회차 - 오라클19c 네트워크 연결 리스너, netmgr, tnsname.ora, sqlnet.ora",
+            summary: "오라클 19c 환경에서 netmgr 툴을 활용한 기본 리스너(Listener) 구성을 실습하고, tnsnames.ora 및 sqlnet.ora 설정 파일 제어를 통해 클라이언트와 데이터베이스 서버 간의 네트워크 연동 및 접속 환경 구축 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224375465398"
+        },
+       {
+            date: "2026-08-10",
+            title: "34회차 - 오라클19c 공간사용개선(Improving Space Usage)과 UNDO Tablespace",
+            summary: "오라클 19c 환경에서 스토리지 공간 사용 효율화(Improving Space Usage) 기법의 기본을 다뤄보고, 롤백 및 읽기 일관성을 지원하는 UNDO Tablespace의 생성과 관리 원리를 파악하며 데이터베이스 저장 공간 최적화 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224374244402"
+        },
+       {
+            date: "2026-08-07",
+            title: "33회차 - 오라클19c  DB만들기 실습, 테이블스페이스 생성 및 관리",
+            summary: "오라클 19c 환경에서 데이터베이스 생성 절차를 실습하고, 테이블스페이스의 생성 및 용량 확장, 파일 이동 등 기본적인 스토리지 관리 작업을 직접 수행하며 데이터베이스 물리·논리 구조 운용 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224371350947"
+        },
+       {
+            date: "2026-08-06",
+            title: "32회차 - 오라클19c 테이블스페이스, 세그먼트, 익스텐트, 블락",
+            summary: "오라클 19c의 핵심 논리적 저장 구조인 테이블스페이스(Tablespace), 세그먼트(Segment), 익스텐트(Extent), 블록(Block)의 계층적 관계와 기본 개념을 익히며, 데이터베이스 스토리지 할당 및 관리 체계를 이해하는 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224370429904"
+        },
+       {
+            date: "2026-08-05",
+            title: "31회차 - 오라클 19c 커맨드로 DB생성과 DBCA silent mode",
+            summary: "CLI 커맨드를 통한 수동 데이터베이스 생성 절차를 익히고, DBCA(Database Configuration Assistant)의 Silent Mode를 활용하여 GUI 없이 응답 파일 기반으로 데이터베이스를 자동 배포하는 기초 실무 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224369189486"
+        },
+       {
+            date: "2026-08-04",
+            title: "30회차 - 오라클19c 데이터베이스 인스턴스",
+            summary: "오라클 19c 데이터베이스 인스턴스의 시작(Startup) 및 종료(Shutdown) 단계별 동작 메커니즘을 익히고, 인스턴스와 데이터베이스 간의 상호작용 원리를 파악하며 데이터베이스 관리의 기초 운영 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224368317257"
+        },
+       {
+            date: "2026-08-03",
+            title: "29회차 - 오라클19c 인스턴스 프로세스 역할",
+            summary: "오라클 19c 인스턴스를 구성하는 핵심 백그라운드 프로세스들의 기본 역할과 동작 방식을 학습하며, 메모리와 디스크 간의 데이터 처리 및 데이터베이스 운영 원리 전반을 이해하는 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224367164469"
+        },
+       {
+            date: "2026-07-31",
+            title: "28회차 - 오라클19c ADMIN( DB구조 문답 )",
+            summary: "오라클19c ADMIN 기",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224364159041"
+        },
+       {
+            date: "2026-07-30",
+            title: "27회차 - 오라클19c ADMIN, oracle server 구조, Instance(SGA,PGA),DB(control files, data Files, redo log) ",
+            summary: "오라클 19c 관리자(ADMIN) 기본 개념과 오라클 서버 아키텍처를 학습하며, SGA·PGA로 구성된 인스턴스(Instance) 메모리 영역과 컨트롤 파일, 데이터 파일, 리두 로그 파일로 이뤄진 데이터베이스(DB) 물리 구조의 기초 동작 원리를 이해하는 과정을 경험했습니다.",
+            tags: ["Oracle","ADMIN","Architecture"],
+            link: "https://blog.naver.com/10soong/224363071740"
+        },
+       {
+            date: "2026-07-29",
+            title: "26회차 - VMware 17설치, Linux7.9 설치, ORACLE19C 설치",
+            summary: "VMware 17설치, Linux7.9 설치, ORACLE19C 설치",
+            tags: ["Oracle","SQL"],
+            link: "https://blog.naver.com/10soong/224361978225"
+        },
+       {
+            date: "2026-07-28",
+            title: "25회차 - SQL Final Test ",
+            summary: "SQL Final Test ",
+            tags: ["Oracle","SQL"],
+            link: "https://blog.naver.com/10soong/224360780361"
+        },
+       {
+            date: "2026-07-27",
+            title: "24회차 - 오라클11g WITH clause,Recursive,REGEXP,ROLLUP,CUBE,GROUPING SETS,계층형 질의",
+            summary: "WITH 절과 재귀적(Recursive) 쿼리, 정규표현식(REGEXP)의 기초 활용법을 학습하고, ROLLUP, CUBE, GROUPING SETS를 이용한 기본 데이터 집계와 계층형 질의의 기초 개념을 다루며 오라클 11g의 고급 SQL 작성 과정을 경험했습니다.",
+            tags: ["Oracle","SQL"],
+            link: "https://blog.naver.com/10soong/224359594106"
+        },
        {
             date: "2026-07-24",
             title: "23회차 - 오라클11g Temporary Tables,External Tables, MERGE,Version query,Time Zones",
@@ -277,73 +501,97 @@ const DATA = {
                     icon: "fas fa-laptop-code text-gray-400",
                     files: [
                         { 
-                            title: "CHAPTER 12: 뷰(View) 생성, 수정 & 복합 뷰 실습 문제 (30문항)", 
+                            title: "사용자 접근 제어 SQL 실습 문제", 
+                            url: "./quizzes/ch18.md", 
+                            isQuiz: true, prefix: "ch18", quizId: "quiz-ch18",
+                            guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
+                        },
+                        { 
+                            title: "서브쿼리를 이용한 데이터 조작 SQL 실습 문제", 
+                            url: "./quizzes/ch17.md", 
+                            isQuiz: true, prefix: "ch17", quizId: "quiz-ch17",
+                            guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
+                        },
+                        { 
+                            title: "서브쿼리를 이용한 데이터 조회 SQL 실습 문제", 
+                            url: "./quizzes/ch16.md", 
+                            isQuiz: true, prefix: "ch16", quizId: "quiz-ch16",
+                            guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
+                        },
+                        { 
+                            title: "스키마 객체 관리 SQL 실습 문제 30문제", 
+                            url: "./quizzes/ch15.md", 
+                            isQuiz: true, prefix: "ch15", quizId: "quiz-ch15",
+                            guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
+                        },
+                        { 
+                            title: "뷰(View) 생성, 수정 & 복합 뷰 실습 문제 (30문항)", 
                             url: "./quizzes/ch14.md", 
                             isQuiz: true, prefix: "ch14", quizId: "quiz-ch14",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 11: 시퀀스, 동의어, 인덱스 생성 실습 문제 (30문항)", 
+                            title: "시퀀스, 동의어, 인덱스 생성 실습 문제 (30문항)", 
                             url: "./quizzes/ch13.md", 
                             isQuiz: true, prefix: "ch13", quizId: "quiz-ch13",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 10: 데이터 딕셔너리 뷰 실습 문제 (30문항)", 
+                            title: "데이터 딕셔너리 뷰 실습 문제 (30문항)", 
                             url: "./quizzes/ch12.md", 
                             isQuiz: true, prefix: "ch12", quizId: "quiz-ch12",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 09: 데이터 정의 언어(DDL) 소개", 
+                            title: "데이터 정의 언어(DDL) 소개", 
                             url: "./quizzes/ch11.md", 
                             isQuiz: true, prefix: "ch11", quizId: "quiz-ch11",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 08: DML 문을 사용한 테이블 관리 실습 문제 (30문항)", 
+                            title: "DML 문을 사용한 테이블 관리 실습 문제 (30문항)", 
                             url: "./quizzes/ch10.md", 
                             isQuiz: true, prefix: "ch10", quizId: "quiz-ch10",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 07: 집합 연산자 사용 실습 문제 (30문항)", 
+                            title: "집합 연산자 사용 실습 문제 (30문항)", 
                             url: "./quizzes/ch09.md", 
                             isQuiz: true, prefix: "ch09", quizId: "quiz-ch09",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 06: 서브쿼리를 활용한 쿼리 작성 실습 문제", 
+                            title: "서브쿼리를 활용한 쿼리 작성 실습 문제", 
                             url: "./quizzes/ch08.md", 
                             isQuiz: true, prefix: "ch08", quizId: "quiz-ch08",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 05: JOIN(다중 테이블 조회) 실습 문제 (30문항)", 
+                            title: "JOIN(다중 테이블 조회) 실습 문제 (30문항)", 
                             url: "./quizzes/ch07.md", 
                             isQuiz: true, prefix: "ch07", quizId: "quiz-ch07",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 04: 그룹 함수 실습 문제 (30문항)", 
+                            title: "그룹 함수 실습 문제 (30문항)", 
                             url: "./quizzes/ch06.md", 
                             isQuiz: true, prefix: "ch06", quizId: "quiz-ch06",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 03: 변환 함수와 조건식 실습 문제 (30문항)", 
+                            title: "변환 함수와 조건식 실습 문제 (30문항)", 
                             url: "./quizzes/ch05.md", 
                             isQuiz: true, prefix: "ch05", quizId: "quiz-ch05",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 02: 단일행 함수 실습 문제 (30문항)", 
+                            title: "단일행 함수 실습 문제 (30문항)", 
                             url: "./quizzes/ch04.md", 
                             isQuiz: true, prefix: "ch04", quizId: "quiz-ch04",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         },
                         { 
-                            title: "CHAPTER 01: 데이터 제한 및 정렬 실습 문제 (30문항)", 
+                            title: "데이터 제한 및 정렬 실습 문제 (30문항)", 
                             url: "./quizzes/ch03.md", 
                             isQuiz: true, prefix: "ch03", quizId: "quiz-ch03",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
@@ -364,7 +612,7 @@ const DATA = {
                         { 
                             title: "1. Hot Backup 구성 및 장애 복구", 
                             // 실제 깃허브 원시(raw) 파일 주소로 변경하세요.
-                            url: "./skills/backup_recovery/archive/ARC_데이터파일을 새 위치로 복구 — RENAME FILE.md" 
+                            url: "./skills/archive/ARC_데이터파일을 새 위치로 복구 — RENAME FILE.md" 
                         },
                         { 
                             title: "2. Tablespace Point-in-Time Recovery", 

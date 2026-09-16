@@ -1,0 +1,5 @@
+CREATE TABLE dept2 AS SELECT * FROM departments;
+CREATE TABLE emp2  AS SELECT * FROM employees;
+
+DESCRIBE dept2;
+DESCRIBE emp2;

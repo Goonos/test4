@@ -21,5 +21,4 @@ COMMIT
 
 Delete from cascade_parent where parent_id = 1
 
--- cascade_child 테이블의 child_id 1,2번 둘다 삭제된다.
 /

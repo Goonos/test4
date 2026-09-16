@@ -7,3 +7,6 @@ else salary
 END as sal
 from employees
 /
+
+
+

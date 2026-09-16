@@ -1,0 +1,8 @@
+CREATE PRIVATE TEMPORARY TABLE ORA$PTT_calc_temp
+    (calc_id   NUMBER,
+     calc_val  NUMBER(15,4),
+     calc_note VARCHAR2(100))
+ON COMMIT DROP DEFINITION;
+
+INSERT INTO ORA$PTT_calc_temp VALUES (1, 3.14159, 'Pi value');
+COMMIT;

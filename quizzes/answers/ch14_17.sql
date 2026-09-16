@@ -1,0 +1,1 @@
+DELETE FROM emp_dept10_ro_vu WHERE employee_number = 200;
