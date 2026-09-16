@@ -6,24 +6,18 @@ const DATA = {
     
     // 1. 트러블슈팅 데이터 (상세 보기 데이터 추가 버전)
     troubleshooting: [
-        {
+         {
             id: "ts-01", 
-            title: "특정 집계 쿼리 타임아웃 발생 및 인덱스 재구성을 통한 개선",
-            context: "대용량 결제 테이블에서 특정 기간 조회 시 5초 이상 소요되며 가끔 시스템 타임아웃 발생.",
-            result: "조회 응답 속도 96% 개선 (5.2초 -> 0.2초), CPU Peak 부하 안정화.",
-            code: SQL_QUERIES.ts01,
-            relatedArchId: "arch-03", // ⭐️ 연결 고리: 3번 백서(성능 튜닝 백서)와 연동됩니다.
+            title: "text",
+            context: "text",
+            result: "text",
+            code: SQL_QUERIES.ts02,
+            relatedArchId: "arch-01", // ⭐️ 예시: 1번 백서와 연결
             details: [
-                {
-                    subtitle: "🔍 문제 진단 및 원인 분석 과정 (Deep Dive)",
-                    content: "오라클 AWR(Automatic Workload Repository) 보고서와 <code>EXPLAIN PLAN</code>을 통해 해당 쿼리가 <code>HASH JOIN</code> 및 <code>SORT MERGE JOIN</code>을 수행하는 과정에서 대규모 임시 세그먼트(Temp Segment)를 디스크에 쓰고 있는 것을 발견했습니다. 기존 인덱스는 컬럼의 카디널리티(선택도)를 고려하지 않고 <code>STATUS</code>가 선두 컬럼으로 잡혀 있어, 실제 범위 검색 조건인 <code>CREATED_AT</code>의 장점을 전혀 활용하지 못하고 Full Table Scan에 준하는 Cost가 발생하고 있었습니다."
-                },
-                {
-                    subtitle: "🛠️ 튜닝 시나리오 및 검증 절차",
-                    content: "1단계로 선두 컬럼을 범위 검색 조건인 <code>CREATED_AT</code>으로 변경한 복합 인덱스를 생성했습니다. 2단계로 오라클 옵티마이저가 올바른 인덱스를 강제 인지할 수 있도록 쿼리에 <code>INDEX</code> 힌트를 명시했습니다. 테스트 환경에서 1,500만 건의 더미 데이터를 적재한 후 스트레스 테스트를 수행한 결과, 블록 I/O(Logical Reads) 수치가 기존 대비 1/50 수준으로 급감하는 전 과정을 SQL Trace(tkprof)를 통해 정량적으로 검증 완료했습니다."
-                }
+                { subtitle: "🔍 text", content: "text" },
+                { subtitle: "🛠️ text", content: "text" }
             ]
-        },
+        }, 
         {
             id: "ts-02", 
             title: "text",
@@ -596,9 +590,25 @@ const DATA = {
                             isQuiz: true, prefix: "ch03", quizId: "quiz-ch03",
                             guide: "DB버전: Oracle Database 11g / 사용 스키마: HR"
                         }
+                        
+                    ]
+                    
+                },
+                // 💡 [새로 추가된 부분] 미니 프로젝트 폴더
+                {
+                    title: "MiniProject",
+                    icon: "fas fa-project-diagram text-purple-400", // 보라색 프로젝트 아이콘
+                    files: [
+                        {
+                            title: "비디오 대여점 DB 구축 모델링",
+                            url: "#", // fetch를 타지 않으므로 임시 주소
+                            isProject: true, // 🌟 프로젝트임을 알리는 플래그
+                            projectId: "proj-01" // 기존 데이터에 있는 미니 프로젝트 ID 연동
+                        }
                     ]
                 }
             ]
+            
         },
         // 2. 기존 BACKUP & RECOVERY 카테고리
         {
@@ -606,45 +616,262 @@ const DATA = {
             icon: "fas fa-database text-red-400",
             children: [
                 {
+                    title: "BACKUP",
+                    icon: "fas fa-hdd text-emerald-400", // 물리적 디스크/저장소 느낌의 아이콘 (에메랄드색)
+                    files: [
+                    {
+                        "title": "Cold_Backup",
+                        "url": "./skills/01.BACKUP/Cold_Backup.md"
+                    },
+                    {
+                        "title": "Hot_Backup",
+                        "url": "./skills/01.BACKUP/Hot_Backup.md"
+                    },
+                    {
+                        "title": "컨트롤파일 백업",
+                        "url": "./skills/01.BACKUP/컨트롤파일 백업.md"
+                    },
+                    {
+                        "title": "컨트롤파일 생성",
+                        "url": "./skills/01.BACKUP/컨트롤파일 생성.md"
+                    }
+                        // 여기에 BACKUP 관련 md 파일 객체들이 들어갑니다.
+                        // { title: "...", url: "..." }
+                    ]
+                },
+                {
                     title: "ARCHIVE MODE",
                     icon: "fas fa-archive text-yellow-400",
                     files: [
-                        { 
-                            title: "1. Hot Backup 구성 및 장애 복구", 
-                            // 실제 깃허브 원시(raw) 파일 주소로 변경하세요.
-                            url: "./skills/archive/ARC_데이터파일을 새 위치로 복구 — RENAME FILE.md" 
-                        },
-                        { 
-                            title: "2. Tablespace Point-in-Time Recovery", 
-                            url: "https://raw.githubusercontent.com/Goonos/test3/main/skills/backup_recovery/archive/tspitr.md" 
-                        }
+                        {
+                        "title": "ARC_ 리두 로그와 컨트롤파일 손상 (정상 종료)",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_ 리두 로그와 컨트롤파일 손상 (정상 종료).md"
+                    },
+                    {
+                        "title": "ARC_CLEAR UNARCHIVED LOGFILE 을 이용한 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_CLEAR UNARCHIVED LOGFILE 을 이용한 복구.md"
+                    },
+                    {
+                        "title": "ARC_CURRENT 리두 로그 삭제 후 비정상 종료",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_CURRENT 리두 로그 삭제 후 비정상 종료.md"
+                    },
+                    {
+                        "title": "ARC_CURRENT 리두 로그 삭제 후 정상 종료",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_CURRENT 리두 로그 삭제 후 정상 종료.md"
+                    },
+                    {
+                        "title": "ARC_Cold Backup 기반 불완전 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_Cold Backup 기반 불완전 복구.md"
+                    },
+                    {
+                        "title": "ARC_Hot Backup 기반 불완전 복구 — 최소 복구 지점 1",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_Hot Backup 기반 불완전 복구 — 최소 복구 지점 1.md"
+                    },
+                    {
+                        "title": "ARC_Hot Backup 기반 불완전 복구 — 최소 복구 지점",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_Hot Backup 기반 불완전 복구 — 최소 복구 지점.md"
+                    },
+                    {
+                        "title": "ARC_INACTIVE 리두 로그 삭제 — 정상 종료 후와 운영 중",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_INACTIVE 리두 로그 삭제 — 정상 종료 후와 운영 중.md"
+                    },
+                    {
+                        "title": "ARC_SCN-based 불완전 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_SCN-based 불완전 복구.md"
+                    },
+                    {
+                        "title": "ARC_SYSTEM 데이터파일과 컨트롤파일 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_SYSTEM 데이터파일과 컨트롤파일 손상.md"
+                    },
+                    {
+                        "title": "ARC_Sequence-based 불완전 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_Sequence-based 불완전 복구.md"
+                    },
+                    {
+                        "title": "ARC_Time-based 불완전 복구와 READ ONLY 검증",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_Time-based 불완전 복구와 READ ONLY 검증.md"
+                    },
+                    {
+                        "title": "ARC_UNDO 데이터파일 손상 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_UNDO 데이터파일 손상 복구.md"
+                    },
+                    {
+                        "title": "ARC_archive member 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_archive member 손상.md"
+                    },
+                    {
+                        "title": "ARC_데이터파일을 새 위치로 복구 — RENAME FILE",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_데이터파일을 새 위치로 복구 — RENAME FILE.md"
+                    },
+                    {
+                        "title": "ARC_로그 스위치로 정지된 상태의 진단과 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_로그 스위치로 정지된 상태의 진단과 복구.md"
+                    },
+                    {
+                        "title": "ARC_모든 데이터파일 손상 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_모든 데이터파일 손상 복구.md"
+                    },
+                    {
+                        "title": "ARC_모든 데이터파일과 컨트롤파일 동시 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_모든 데이터파일과 컨트롤파일 동시 손상.md"
+                    },
+                    {
+                        "title": "ARC_모든 데이터파일을 새 위치로 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_모든 데이터파일을 새 위치로 복구.md"
+                    },
+                    {
+                        "title": "ARC_백업 받지 않은 테이블스페이스를 새 위치로 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_백업 받지 않은 테이블스페이스를 새 위치로 복구.md"
+                    },
+                    {
+                        "title": "ARC_백업 받지 않은 테이블스페이스의 데이터파일 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_백업 받지 않은 테이블스페이스의 데이터파일 복구.md"
+                    },
+                    {
+                        "title": "ARC_백업 컨트롤파일과 현재 구조 불일치 보정",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_백업 컨트롤파일과 현재 구조 불일치 보정.md"
+                    },
+                    {
+                        "title": "ARC_비정상 종료 후 컨트롤파일 손상 — 재생성",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_비정상 종료 후 컨트롤파일 손상 — 재생성.md"
+                    },
+                    {
+                        "title": "ARC_아카이브 손상 — Cancel-based 불완전 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_아카이브 손상 — Cancel-based 불완전 복구.md"
+                    },
+                    {
+                        "title": "ARC_아카이브 용량 초과로 DB정지",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_아카이브 용량 초과로 DB정지.md"
+                    },
+                    {
+                        "title": "ARC_아카이브가 일부 삭제되었어도 온라인 리두로 완전 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_아카이브가 일부 삭제되었어도 온라인 리두로 완전 복구.md"
+                    },
+                    {
+                        "title": "ARC_오프라인 상태 테이블스페이스의 데이터파일 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_오프라인 상태 테이블스페이스의 데이터파일 손상.md"
+                    },
+                    {
+                        "title": "ARC_운영 중 CURRENT 리두 로그 삭제",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_운영 중 CURRENT 리두 로그 삭제.md"
+                    },
+                    {
+                        "title": "ARC_운영 중 UNDO 손상과 테이블스페이스 전환",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_운영 중 UNDO 손상과 테이블스페이스 전환.md"
+                    },
+                    {
+                        "title": "ARC_운영 중 데이터파일 손상 — 무중단 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_운영 중 데이터파일 손상 — 무중단 복구.md"
+                    },
+                    {
+                        "title": "ARC_일반 데이터파일 + INACTIVE 리두 + 컨트롤파일 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_일반 데이터파일 + INACTIVE 리두 + 컨트롤파일 손상.md"
+                    },
+                    {
+                        "title": "ARC_읽기 전용 테이블스페이스 복구",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_읽기 전용 테이블스페이스 복구.md"
+                    },
+                    {
+                        "title": "ARC_전체 손실 — 아카이브 보유",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_전체 손실 — 아카이브 보유.md"
+                    },
+                    {
+                        "title": "ARC_정상 종료 후 여러 데이터파일 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_정상 종료 후 여러 데이터파일 손상.md"
+                    },
+                    {
+                        "title": "ARC_정상 종료 후 컨트롤파일 손상 — Binary 백업본 사용",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_정상 종료 후 컨트롤파일 손상 — Binary 백업본 사용.md"
+                    },
+                    {
+                        "title": "ARC_정상 종료 후 컨트롤파일 손상 — trace 재생성",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_정상 종료 후 컨트롤파일 손상 — trace 재생성.md"
+                    },
+                    {
+                        "title": "ARC_테이블스페이스의 여러 파일 중 특정 파일만 손상",
+                        "url": "./skills/02.ARCHIVE MODE/ARC_테이블스페이스의 여러 파일 중 특정 파일만 손상.md"
+                    }
                     ]
                 },
                 {
                     title: "NOARCHIVE MODE",
                     icon: "fas fa-box-open text-gray-400",
                     files: [
-                        { 
-                            title: "1. Cold Backup 스크립트 작성 및 복구", 
-                            url: "https://raw.githubusercontent.com/Goonos/test3/main/skills/backup_recovery/noarchive/cold_backup.md" 
-                        }
+                        {
+                        "title": "NOARC_No 백업TS No Online_Redo",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_No 백업TS No Online_Redo.md"
+                    },
+                    {
+                        "title": "NOARC_No 백업TS Yes Online_Redo",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_No 백업TS Yes Online_Redo.md"
+                    },
+                    {
+                        "title": "NOARC_SYSAUX 데이터파일 손상 — SYSTEM과의 차이 확인",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_SYSAUX 데이터파일 손상 — SYSTEM과의 차이 확인.md"
+                    },
+                    {
+                        "title": "NOARC_SYSTEM 데이터파일 손상 — 리두 없음",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_SYSTEM 데이터파일 손상 — 리두 없음.md"
+                    },
+                    {
+                        "title": "NOARC_SYSTEM 데이터파일 손상 — 리두 있음",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_SYSTEM 데이터파일 손상 — 리두 있음.md"
+                    },
+                    {
+                        "title": "NOARC_TEMP 파일 손상과 재생성",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_TEMP 파일 손상과 재생성.md"
+                    },
+                    {
+                        "title": "NOARC_UNDO 데이터파일 손상 — 리두 없음",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_UNDO 데이터파일 손상 — 리두 없음.md"
+                    },
+                    {
+                        "title": "NOARC_UNDO 데이터파일 손상 — 리두 있음",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_UNDO 데이터파일 손상 — 리두 있음.md"
+                    },
+                    {
+                        "title": "NOARC_read only 테이블스페이스 손상",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_read only 테이블스페이스 손상.md"
+                    },
+                    {
+                        "title": "NOARC_디스크 전체 손상",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_디스크 전체 손상.md"
+                    },
+                    {
+                        "title": "NOARC_리두 로그가 빠진 백업본으로 복구",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_리두 로그가 빠진 백업본으로 복구.md"
+                    },
+                    {
+                        "title": "NOARC_리커버리_데이터파일 손상_noarchive & no redo",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_리커버리_데이터파일 손상_noarchive & no redo.md"
+                    },
+                    {
+                        "title": "NOARC_리커버리_데이터파일 손상_noarchive & redo",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_리커버리_데이터파일 손상_noarchive & redo.md"
+                    },
+                    {
+                        "title": "NOARC_컨트롤파일 전체 손상 — Binary 백업본으로 복구",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_컨트롤파일 전체 손상 — Binary 백업본으로 복구.md"
+                    },
+                    {
+                        "title": "NOARC_컨트롤파일 전체 손상 — trace로 재생성",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_컨트롤파일 전체 손상 — trace로 재생성.md"
+                    },
+                    {
+                        "title": "NOARC_트랜잭션 진행 중 UNDO 손상",
+                        "url": "./skills/03.NOARCHIVE MODE/NOARC_트랜잭션 진행 중 UNDO 손상.md"
+                    }
+                    ]
+                },
+                {
+                    title: "RMAN",
+                    icon: "fas fa-shield-alt text-green-400", // 강력한 복구 관리자/보호 느낌의 방패 아이콘 (초록색)
+                    files: [
+                        // 여기에 RMAN 관련 md 파일 객체들이 들어갑니다.
                     ]
                 }
             ]
         },
-        {
-            title: "PERFORMANCE TUNING",
-            icon: "fas fa-tachometer-alt text-green-400",
-            children: [
-                {
-                    title: "INDEX TUNING",
-                    icon: "fas fa-list-ol text-blue-400",
-                    files: [
-                        { title: "1. 인덱스 스캔 효율화 사례", url: "#" }
-                    ]
-                }
-            ]
-        }
     ],
     // 💡 4. 신규 오라클 워크숍 퀴즈 데이터 세트 구축
     quizzes: [
@@ -867,6 +1094,5 @@ const DATA = {
             qaList: PROJECT_QA_DATA["proj-01"] 
         }
     ]
-    
 };
 

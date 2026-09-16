@@ -12,36 +12,40 @@ try {
         let treeHtml = `<ul class="space-y-1">`;
         
         DATA.skills.forEach((category, catIdx) => {
+            // 💡 [요구사항 반영] 1단계 대분류 (SQL, BACKUP & RECOVERY)는 기본적으로 열려있도록 설정 (max-height: 2000px, 아이콘 뒤집기)
             treeHtml += `
                 <li>
                     <button class="w-full text-left px-2 py-2 flex items-center justify-between text-gray-300 hover:bg-gray-800 rounded-md transition cursor-pointer" onclick="toggleTree('cat-${catIdx}')">
                         <span class="font-bold text-xs"><i class="${category.icon} w-5 text-center mr-1"></i> ${category.title}</span>
-                        <i id="icon-cat-${catIdx}" class="fas fa-chevron-down text-[10px] text-gray-500 transition-transform"></i>
+                        <i id="icon-cat-${catIdx}" class="fas fa-chevron-down text-[10px] text-gray-500 transition-transform" style="transform: rotate(-180deg);"></i>
                     </button>
-                    <ul id="cat-${catIdx}" class="pl-4 mt-1 space-y-1 overflow-hidden transition-all duration-300">
+                    <ul id="cat-${catIdx}" class="pl-4 mt-1 space-y-1 overflow-hidden transition-all duration-300" style="max-height: 2000px;">
             `;
             
             if(category.children) {
                 category.children.forEach((sub, subIdx) => {
                     const subId = `sub-${catIdx}-${subIdx}`;
+                    // 💡 [요구사항 반영] 2단계 소분류 (PRACTICE, ARCHIVE MODE 등)는 닫혀있도록 설정 (max-height: 0px)
                     treeHtml += `
                         <li>
                             <button class="w-full text-left px-2 py-1.5 flex items-center justify-between text-gray-400 hover:text-white hover:bg-gray-800/50 rounded-md transition cursor-pointer" onclick="toggleTree('${subId}')">
                                 <span class="text-xs font-semibold"><i class="${sub.icon} w-5 text-center mr-1"></i> ${sub.title}</span>
                                 <i id="icon-${subId}" class="fas fa-chevron-down text-[10px] text-gray-600 transition-transform"></i>
                             </button>
-                            <ul id="${subId}" class="pl-5 mt-1 space-y-0.5 overflow-hidden transition-all duration-300">
+                            <ul id="${subId}" class="pl-5 mt-1 space-y-0.5 overflow-hidden transition-all duration-300" style="max-height: 0px;">
                     `;
                     
                     if(sub.files) {
                         sub.files.forEach((file, fileIdx) => {
                             const bcPath = `${category.title} > ${sub.title} > ${file.title}`;
-                            // 🌟 file 객체를 JSON 문자열로 변환하여 넘깁니다. (따옴표 처리에 주의)
                             const fileJson = JSON.stringify(file).replace(/"/g, '&quot;');
+                            // 프로젝트 파일일 경우 아이콘을 다르게 표시
+                            const fileIcon = file.isProject ? 'fas fa-project-diagram text-purple-400' : 'fas fa-file-alt opacity-70';
+                            
                             treeHtml += `
                                 <li>
                                     <button class="file-btn w-full text-left px-2 py-1.5 text-xs text-gray-500 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition cursor-pointer flex items-start" onclick="loadSkillDoc('${file.url}', this, '${bcPath}', '${fileJson}')">
-                                        <i class="fas fa-file-alt mt-0.5 mr-2 w-3 text-center opacity-70"></i> <span class="line-clamp-1 break-all">${file.title}</span>
+                                        <i class="${fileIcon} mt-0.5 mr-2 w-3 text-center"></i> <span class="line-clamp-1 break-all">${file.title}</span>
                                     </button>
                                 </li>
                             `;
@@ -70,10 +74,8 @@ try {
         }
     };
 
-    // 문서 및 퀴즈 로드 함수
+    // 문서, 퀴즈, 미니 프로젝트 로드 함수
     window.loadSkillDoc = async function(url, btnElement, pathStr, fileDataStr) {
-        if (!url || url === "#") return;
-        
         const fileData = JSON.parse(fileDataStr.replace(/&quot;/g, '"'));
 
         document.querySelectorAll('.file-btn').forEach(btn => {
@@ -87,6 +89,26 @@ try {
         skillsPlaceholder.classList.add("hidden");
         skillsContent.classList.remove("hidden");
         
+        // 💡 1. 미니 프로젝트인 경우 (모달창 연동)
+        if (fileData.isProject) {
+            skillsContent.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full text-gray-400 mt-10">
+                    <div class="w-16 h-16 rounded-full bg-purple-500/10 flex items-center justify-center mb-5 border border-purple-500/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                        <i class="fas fa-project-diagram text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">${fileData.title}</h3>
+                    <p class="text-xs text-gray-500 mb-6 text-center break-keep">이 프로젝트는 화면 분할(명세서 + SQL 해답)에 최적화된 팝업 창에서 제공됩니다.</p>
+                    <button onclick="window.openProjectModal('${fileData.projectId}')" class="px-5 py-2 bg-purple-600/90 hover:bg-purple-500 border border-purple-500 text-white text-sm font-medium rounded-lg transition-all flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-purple-500/20">
+                        <i class="fas fa-external-link-alt"></i> 프로젝트 모달창 다시 열기
+                    </button>
+                </div>
+            `;
+            // 클릭과 동시에 모달창을 즉시 띄워주는 편의성 제공
+            window.openProjectModal(fileData.projectId);
+            return; // 마크다운 파싱을 하지 않고 여기서 함수 종료
+        }
+
+        // 로딩 UI
         skillsContent.innerHTML = `
             <div class="flex flex-col items-center justify-center h-40 text-blue-400">
                 <i class="fas fa-spinner fa-spin text-2xl mb-3"></i>
@@ -99,7 +121,7 @@ try {
             if (!response.ok) throw new Error("데이터를 찾을 수 없습니다.");
             const mdText = await response.text();
             
-            // 💡 파일이 퀴즈 포맷인 경우 기존 팝업 로직을 이식하여 파싱합니다.
+            // 💡 2. 퀴즈 문서인 경우 (기존 파서 연동)
             if (fileData.isQuiz) {
                 const guideBox = fileData.guide ? `
                     <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 text-xs text-gray-400 leading-relaxed mb-6">
@@ -128,8 +150,6 @@ try {
 
                     const paddedNum = String(qNum).padStart(2, '0');
                     const fileName = `${fileData.prefix}_${paddedNum}.sql`;
-                    // 🔥 로컬 환경 테스트용 (깃허브 연동 시 원본 raw URL로 변경 필요)
-                    // const rawFileUrl = `[https://raw.githubusercontent.com/Goonos/test3/main/quizzes/answers/$](https://raw.githubusercontent.com/Goonos/test3/main/quizzes/answers/$){fileName}`;
                     const rawFileUrl = `./quizzes/answers/${fileName}`; 
 
                     htmlContent += `
@@ -160,12 +180,11 @@ try {
                 htmlContent += `</div></div>`;
                 skillsContent.innerHTML = htmlContent;
 
+            // 💡 3. 일반 마크다운 문서인 경우
             } else {
-                // 일반 마크다운 문서 파싱 (Marked.js 사용)
                 const htmlContent = marked.parse(mdText);
                 skillsContent.innerHTML = `<div class="wiki-format">${htmlContent}</div>`;
                 
-                // Highlight.js 적용
                 setTimeout(() => {
                     if (typeof hljs !== 'undefined') {
                         skillsContent.querySelectorAll('pre code').forEach((block) => {
@@ -184,9 +203,6 @@ try {
             `;
         }
     };
-    
-    // (기존 window.toggleAnswerCode 함수는 동일하게 유지합니다. 이미 정의되어 있다면 중복 방지)
-    
 } catch (e) {
     console.error("Skills Tree Error:", e);
 }
