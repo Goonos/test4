@@ -280,10 +280,13 @@ try {
             }
         });
     }
-
+    
     // ==========================================
     // 1. 트러블슈팅 섹션
     // ==========================================
+
+    /*
+
     try {
         const troubleContainer = document.getElementById("trouble-container");
         const troubleIndicator = document.getElementById("trouble-indicator");
@@ -515,10 +518,12 @@ try {
     } catch (e) {
         console.error("Troubleshooting Error 예외 처리:", e);
     }
-
+    */
+   
     // ==========================================
     // 2. 아키텍처 섹션 (2x2 그리드)
     // ==========================================
+
     try {
         const quadContainer = document.getElementById("arch-quadrant-container");
         if (quadContainer && DATA.architecture) {
@@ -1134,3 +1139,111 @@ try {
         if (e.target === projModal) window.closeProjectModal(); 
     });
 }); // 💡 여기가 유일하고 올바른 닫는 괄호입니다!
+
+
+// ==========================================
+// 💡 PPT 슬라이더 (Architecture Story) 제어 로직
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('ppt-slider');
+    const prevBtn = document.getElementById('ppt-prev');
+    const nextBtn = document.getElementById('ppt-next');
+    const indicator = document.getElementById('ppt-indicator');
+    const dots = document.querySelectorAll('.ppt-dot');
+
+    if (!slider) return;
+
+    // 슬라이드 이동 함수 (버튼 클릭용)
+    const slideTo = (direction) => {
+        const slideWidth = slider.clientWidth;
+        slider.scrollBy({ left: direction * slideWidth, behavior: 'smooth' });
+    };
+
+    if (prevBtn) prevBtn.addEventListener('click', () => slideTo(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => slideTo(1));
+
+    // 스크롤 이벤트 감지하여 현재 슬라이드 번호 및 점(dot) 업데이트
+    slider.addEventListener('scroll', () => {
+        const slideWidth = slider.clientWidth;
+        // 현재 스크롤 위치를 너비로 나누어 현재 인덱스(0~4) 계산
+        const currentIndex = Math.round(slider.scrollLeft / slideWidth);
+        
+        // 🔥 PC 인디케이터 텍스트 업데이트 (Slide 1 / 5 부터 시작)
+        if (indicator) {
+            indicator.innerText = `Slide ${currentIndex + 1} / 5`;
+        }
+        
+        // 모바일 하단 점(dot) 색상 업데이트
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.remove('bg-gray-600');
+                dot.classList.add('bg-blue-500');
+            } else {
+                dot.classList.remove('bg-blue-500');
+                dot.classList.add('bg-gray-600');
+            }
+        });
+    });
+
+    // 🔥 ERD 모달창 닫기 이벤트 바인딩
+    const erdModal = document.getElementById('erd-modal');
+    const erdModalCloseBtn = document.getElementById('erd-modal-close');
+    
+    if (erdModal && erdModalCloseBtn) {
+        // X 버튼 클릭 시 닫기
+        erdModalCloseBtn.addEventListener('click', () => {
+            erdModal.classList.remove('opacity-100', 'pointer-events-auto');
+            setTimeout(() => erdModal.classList.add('hidden'), 300);
+        });
+        
+        // 배경(검은 영역) 클릭 시 닫기
+        erdModal.addEventListener('click', (e) => {
+            if (e.target === erdModal) {
+                erdModal.classList.remove('opacity-100', 'pointer-events-auto');
+                setTimeout(() => erdModal.classList.add('hidden'), 300);
+            }
+        });
+    }
+});
+
+// 🔥 ERD 팝업창 열기 함수
+function openErdModal(imageSrc, titleText) {
+    const erdModal = document.getElementById('erd-modal');
+    const erdModalImg = document.getElementById('erd-modal-img');
+    const erdModalTitle = document.getElementById('erd-modal-title');
+
+    if (erdModal && erdModalImg) {
+        // 1. 클릭한 이미지 주소와 제목을 모달창에 주입
+        erdModalImg.src = imageSrc;
+        
+        if (titleText && erdModalTitle) {
+            erdModalTitle.innerHTML = `<i class="fas fa-search-plus mr-1"></i> ${titleText} (화면 아무 곳이나 클릭하면 닫힙니다)`;
+        }
+
+        // 2. 모달 열기 애니메이션 실행
+        erdModal.classList.remove('hidden');
+        setTimeout(() => {
+            erdModal.classList.remove('pointer-events-none');
+            erdModal.classList.add('opacity-100');
+        }, 10);
+    }
+}
+
+// 🔥 이미지 팝업창 닫기 함수
+function closeErdModal() {
+    const erdModal = document.getElementById('erd-modal');
+    if (erdModal) {
+        // 투명하게 만들고 다시 클릭 방지
+        erdModal.classList.remove('opacity-100');
+        erdModal.classList.add('pointer-events-none');
+        
+        // 애니메이션(300ms) 종료 후 숨김 처리
+        setTimeout(() => {
+            erdModal.classList.add('hidden');
+            // 닫힐 때 잔상을 방지하기 위해 src 초기화
+            const erdModalImg = document.getElementById('erd-modal-img');
+            if(erdModalImg) erdModalImg.src = "";
+        }, 300);
+    }
+}
+
