@@ -132,3 +132,41 @@ html {
     padding: 0.75rem;
     border: 1px solid #374151;
 }
+
+
+/* ========================================== */
+/* 🔥 END-TO-END 아키텍처 섹션 스포트라이트 강조 */
+/* ========================================== */
+
+/* 1. 섹션을 위치 기준으로 설정 */
+#architecture-story {
+    position: relative;
+}
+
+/* 2. 가상 요소를 사용하여 양옆으로 뻗어나가는 은은한 배경 광원 추가 */
+#architecture-story::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw; /* 브라우저 전체 너비로 확장 */
+    height: 100%;
+    /* 기존 테마를 해치지 않는 아주 연한 시그니처 블루 광원 (중앙에서 퍼져나감) */
+    background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
+    z-index: 0;
+    pointer-events: none; /* 클릭 방해 금지 */
+}
+
+/* 3. 본문 컨텐츠가 배경 조명 위로 선명하게 올라오도록 z-index 조정 */
+#architecture-story > div {
+    position: relative;
+    z-index: 1;
+}
+
+/* 4. PPT 슬라이더 박스 자체에 은은한 블루 네온 글로우(Glow) 효과 추가 */
+#architecture-story .group {
+    box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.12); /* 은은한 푸른 그림자 */
+    border-color: rgba(59, 130, 246, 0.25); /* 테두리를 살짝 푸른빛으로 변경 */
+    transition: all 0.5s ease-in-out;
+}
