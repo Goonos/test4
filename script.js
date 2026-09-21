@@ -117,7 +117,10 @@ try {
         `;
 
         try {
-            const response = await fetch(url);
+            // 💡 Mac 한글 자소분리(NFD) 현상 대응 및 URL 인코딩 일괄 처리
+            const fixedUrl = encodeURI(url.normalize('NFD'));
+            const response = await fetch(fixedUrl);
+            
             if (!response.ok) throw new Error("데이터를 찾을 수 없습니다.");
             const mdText = await response.text();
             
