@@ -1,3 +1,5 @@
-auto_skills.*
-generate_skills.*
-queries.*
+auto_skills.js
+generate_skills.js
+queries.js
+
+
