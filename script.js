@@ -58,6 +58,35 @@ try {
         });
         treeHtml += `</ul>`;
         skillsTree.innerHTML = treeHtml;
+        setTimeout(() => {
+                // 1. 트리 안의 모든 파일 버튼을 가져옵니다.
+                const allFileBtns = document.querySelectorAll('.file-btn');
+                
+                // 2. 텍스트에 'Oracle 19c Grid (ASM) 구성'이 포함된 버튼을 찾습니다.
+                let targetBtn = null;
+                allFileBtns.forEach(btn => {
+                    if (btn.textContent.includes('Oracle 19c Grid (ASM) 구성')) {
+                        targetBtn = btn;
+                    }
+                });
+
+                if (targetBtn) {
+                    // 3. 해당 버튼이 속한 부모 폴더(ul)를 찾아 펼쳐줍니다.
+                    const parentUl = targetBtn.closest('ul');
+                    if (parentUl && parentUl.style.maxHeight === '0px') {
+                        parentUl.style.maxHeight = parentUl.scrollHeight + "1000px"; // 폴더 열기
+                        
+                        // 폴더의 화살표 아이콘 방향 변경
+                        const icon = document.getElementById('icon-' + parentUl.id);
+                        if (icon) {
+                            icon.style.transform = "rotate(-180deg)";
+                        }
+                    }
+                    
+                    // 4. 해당 버튼을 강제로 클릭하여 우측에 마크다운 화면을 띄웁니다.
+                    targetBtn.click();
+                }
+            }, 50);
     }
 
     window.toggleTree = function(id) {
@@ -118,7 +147,7 @@ try {
 
         try {
             // 💡 Mac 한글 자소분리(NFD) 현상 대응 및 URL 인코딩 일괄 처리
-            const fixedUrl = encodeURI(url.normalize('NFD'));
+            const fixedUrl = encodeURI(url.normalize('NFC'));
             const response = await fetch(fixedUrl);
             
             if (!response.ok) throw new Error("데이터를 찾을 수 없습니다.");
@@ -645,17 +674,17 @@ try {
                     chunk.forEach(item => {
                         const tagsHtml = item.tags.map(tag => `<span class="text-[10px] text-blue-400 bg-blue-500/5 px-2 py-0.5 rounded font-mono">#${tag}</span>`).join(" ");
                         pageHtml += `
-    <div onclick="window.openProjectModal('${item.id}')" class="bg-gray-800/30 border border-gray-800 rounded-lg p-4 flex flex-col justify-between hover:bg-gray-800/60 hover:border-blue-500/30 transition h-44 cursor-pointer group">
-        <div>
-            <span class="text-[10px] text-blue-400 font-mono font-bold">PROJECT</span> • <span class="text-[10px] text-gray-500 font-mono">${item.date}</span>
-            <h3 class="text-sm font-bold text-white mt-1 mb-1.5 line-clamp-1 group-hover:text-blue-300 transition">${item.title}</h3>
-            <p class="text-gray-400 text-xs leading-relaxed mb-2 line-clamp-2">${item.summary}</p>
-        </div>
-        <div class="flex justify-between items-center mt-auto pt-2 border-t border-gray-800/50">
-            <div class="flex flex-wrap gap-1">${tagsHtml}</div>
-            <span class="text-[10px] text-gray-400 group-hover:text-blue-400 font-medium shrink-0 ml-2 transition">열기 ↗</span>
-        </div>
-    </div>`;
+                    <div onclick="window.openProjectModal('${item.id}')" class="bg-gray-800/30 border border-gray-800 rounded-lg p-4 flex flex-col justify-between hover:bg-gray-800/60 hover:border-blue-500/30 transition h-44 cursor-pointer group">
+                        <div>
+                            <span class="text-[10px] text-blue-400 font-mono font-bold">PROJECT</span> • <span class="text-[10px] text-gray-500 font-mono">${item.date}</span>
+                            <h3 class="text-sm font-bold text-white mt-1 mb-1.5 line-clamp-1 group-hover:text-blue-300 transition">${item.title}</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-2 line-clamp-2">${item.summary}</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-auto pt-2 border-t border-gray-800/50">
+                            <div class="flex flex-wrap gap-1">${tagsHtml}</div>
+                            <span class="text-[10px] text-gray-400 group-hover:text-blue-400 font-medium shrink-0 ml-2 transition">열기 ↗</span>
+                        </div>
+                    </div>`;
                     });
                     pageHtml += `</div>`;
                     projectContainer.innerHTML += pageHtml; 

@@ -19,6 +19,6 @@
 <br>
 <div align="center">
   <a href="https://blog.naver.com/10soong/224340612409" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background-color: #03c75a; color: #ffffff; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);">
-    <i class="fas fa-external-link-alt"></i> 네이버 블로그 가이드 바로가기
+    <i class="fas fa-external-link-alt"></i> 네이버 블로그 바로가기
   </a>
 </div>
